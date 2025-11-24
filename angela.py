@@ -14,7 +14,7 @@ def get_angela_password(HOST, PORT, sophia_password):
     stdin, stdout, stderr = ssh.exec_command(f"cat {password_file}")
     stdout = stdout.readlines()
     angela_password = "".join(stdout).split()[0]
-    print(angela_password)
+    print(f"angela -> {angela_password}")
     ssh.close() 
 
     return angela_password

@@ -1,16 +1,20 @@
 import paramiko
 
+from constants import VENUS_HOST, VENUS_PORT
 
-def get_sophia_password(HOST, PORT):
+
+def get_sophia_password():
+    username = "hacker"
+    password = "havefun!"
+
     ssh = paramiko.SSHClient()
     ssh.load_system_host_keys()
-    ssh.connect(hostname=HOST, username="hacker", password="havefun!", port=PORT)
+    ssh.connect(hostname=VENUS_HOST, username=username, password=password, port=VENUS_PORT)
 
-    # Read hidden password
-    stdin, stdout, stderr = ssh.exec_command("cat .myhiddenpazz")
+    _, stdout, _ = ssh.exec_command("cat .myhiddenpazz")
     stdout = stdout.readlines()
-    password = "".join(stdout).split()[0]
-    print(password)
     ssh.close() 
+
+    password = "".join(stdout).split()[0]
 
     return password

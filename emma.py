@@ -12,7 +12,7 @@ def get_emma_password(HOST, PORT, angela_password):
     stdin, stdout, stderr = ssh.exec_command("sed -n '4069p' findme.txt ")
     stdout = stdout.readlines()
     emma_password = "".join(stdout).split()[0]
-    print(emma_password)
+    print(f"emma -> {emma_password}")
 
     return emma_password
 
